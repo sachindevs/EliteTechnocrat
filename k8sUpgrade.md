@@ -13,9 +13,9 @@ apt-mark unhold kubeadm && \
 apt-get update && apt-get install -y kubeadm=1.29.4-2.1 && \
 apt-mark hold kubeadm
 
+## check Kubeadm is upgraded
+
 kubeadm version
-
-
 
 kubeadm upgrade plan
 
@@ -38,7 +38,7 @@ systemctl restart kubelet
 kubectl drain worker-02 --ignore-daemonsets
 
 
-Worker Node 
+## Activity on Worker Node 
 
 apt-mark unhold kubeadm && \
 apt-get update && apt-get install -y kubeadm=1.29.4-2.1 && \
