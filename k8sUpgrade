@@ -28,13 +28,16 @@ apt-mark hold kubelet kubectl
 systemctl daemon-reload
 systemctl restart kubelet
 
+kubectl drain worker-02 --ignore-daemonsets
+
+
 Worker Node 
 
 apt-mark unhold kubeadm && \
 apt-get update && apt-get install -y kubeadm=1.29.4-2.1 && \
 apt-mark hold kubeadm
 
-kubectl drain worker-02 --ignore-daemonsets
+
 
 kubeadm upgrade node
 
