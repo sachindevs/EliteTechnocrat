@@ -1,4 +1,6 @@
 Update the OS 
+kubectl drain control plane --ignore-daemonsets --delete-local-data
+
 apt update
 apt-cache madison kubeadm
 
@@ -12,7 +14,7 @@ apt-mark hold kubeadm
 
 kubeadm version
 
-kubectl drain control plane --ignore-daemonsets --delete-local-data
+
 
 kubeadm upgrade plan
 
