@@ -1,0 +1,46 @@
+Update the OS 
+apt update
+apt-cache madison kubeadm
+
+
+
+Work on Master Node 
+
+apt-mark unhold kubeadm && \
+apt-get update && apt-get install -y kubeadm=1.29.4-2.1 && \
+apt-mark hold kubeadm
+
+kubeadm version
+
+kubectl drain control plane --ignore-daemonsets --delete-local-data
+
+kubeadm upgrade plan
+
+ kubeadm upgrade apply v1.29.4
+
+kubectl uncordon <node name>
+$ kubectl uncordon master
+
+apt-mark unhold kubelet kubectl && \
+apt-get update && apt-get install -y kubelet=1.29.4-2.1 kubectl=1.29.4-2.1 && \
+apt-mark hold kubelet kubectl
+
+systemctl daemon-reload
+systemctl restart kubelet
+
+Worker Node 
+
+apt-mark unhold kubeadm && \
+apt-get update && apt-get install -y kubeadm=1.29.4-2.1 && \
+apt-mark hold kubeadm
+
+kubectl drain worker-02 --ignore-daemonsets
+
+kubeadm upgrade node
+
+apt-mark unhold kubelet kubectl && \
+apt-get update && apt-get install -y kubelet=1.29.4-2.1 kubectl=1.29.4-2.1 && \
+apt-mark hold kubelet kubectl
+
+systemctl daemon-reload
+ systemctl restart kubelet
