@@ -1,12 +1,13 @@
-Update the OS 
-kubectl drain control plane --ignore-daemonsets --delete-local-data
+## Update the OS 
+kubectl drain controlplane --ignore-daemonsets
 
+## Update the Master OS 
 apt update
 apt-cache madison kubeadm
 
 
 
-Work on Master Node 
+## Work on Master Node 
 
 apt-mark unhold kubeadm && \
 apt-get update && apt-get install -y kubeadm=1.29.4-2.1 && \
@@ -20,12 +21,16 @@ kubeadm upgrade plan
 
  kubeadm upgrade apply v1.29.4
 
-kubectl uncordon <node name>
-$ kubectl uncordon master
+## kubectl uncordon <node name>
+kubectl uncordon master
+
+## Unhold and install and hold back kubelet and kubectl 
 
 apt-mark unhold kubelet kubectl && \
 apt-get update && apt-get install -y kubelet=1.29.4-2.1 kubectl=1.29.4-2.1 && \
 apt-mark hold kubelet kubectl
+
+## Restart teh systemctl 
 
 systemctl daemon-reload
 systemctl restart kubelet
